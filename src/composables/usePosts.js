@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: 'https://api.oluwasetemi.dev/main-api',
+  baseURL: 'https://api.oluwasetemi.dev',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -14,7 +14,7 @@ export function usePosts() {
       page: '1',
       limit: '10',
       category: '',
-      status: 'PUBLISHED',
+      //status: 'PUBLISHED',
       search: '',
       sort: 'DESC',
       ...params,
