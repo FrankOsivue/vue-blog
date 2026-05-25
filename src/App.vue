@@ -31,28 +31,29 @@ const scrollToTop = () => {
 
     <main class="flex-grow max-w-5xl mx-auto px-6 py-12 w-full">
       <router-view v-slot="{ Component }">
-        <ErrorBoundary>
-          <Suspense>
-            <template #default>
-              <div class="w-full">
-                <component :is="Component" />
-              </div>
-            </template>
+        <template v-if="Component">
+          <ErrorBoundary>
+            <Suspense timeout="0">
+              <template #default>
+                <div class="w-full">
+                  <component :is="Component" />
+                </div>
+              </template>
 
-            <template #fallback>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-                <div
-                  v-for="n in 4"
-                  :key="n"
-                  class="h-64 bg-slate-200 rounded-2xl animate-pulse"
-                ></div>
-              </div>
-            </template>
-          </Suspense>
-        </ErrorBoundary>
+              <template #fallback>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                  <div
+                    v-for="n in 4"
+                    :key="n"
+                    class="h-64 bg-slate-200 rounded-2xl animate-pulse"
+                  ></div>
+                </div>
+              </template>
+            </Suspense>
+          </ErrorBoundary>
+        </template>
       </router-view>
     </main>
-
     <footer class="bg-slate-900 text-slate-400 py-8 mt-auto">
       <div
         class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4"
