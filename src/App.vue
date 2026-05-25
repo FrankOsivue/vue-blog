@@ -1,3 +1,11 @@
+<script setup>
+import ErrorBoundary from './components/ErrorBoundary.vue'
+// Function to handle the smooth scroll back to the top
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+</script>
+
 <template>
   <div
     class="min-h-screen flex flex-col bg-slate-50 font-sans text-slate-900 selection:bg-indigo-100"
@@ -23,23 +31,25 @@
 
     <main class="flex-grow max-w-5xl mx-auto px-6 py-12 w-full">
       <router-view v-slot="{ Component }">
-        <Suspense>
-          <template #default>
-            <div class="w-full">
-              <component :is="Component" />
-            </div>
-          </template>
+        <ErrorBoundary>
+          <Suspense>
+            <template #default>
+              <div class="w-full">
+                <component :is="Component" />
+              </div>
+            </template>
 
-          <template #fallback>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
-              <div
-                v-for="n in 4"
-                :key="n"
-                class="h-64 bg-slate-200 rounded-2xl animate-pulse"
-              ></div>
-            </div>
-          </template>
-        </Suspense>
+            <template #fallback>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-4">
+                <div
+                  v-for="n in 4"
+                  :key="n"
+                  class="h-64 bg-slate-200 rounded-2xl animate-pulse"
+                ></div>
+              </div>
+            </template>
+          </Suspense>
+        </ErrorBoundary>
       </router-view>
     </main>
 
@@ -70,10 +80,3 @@
     </footer>
   </div>
 </template>
-
-<script setup>
-// Function to handle the smooth scroll back to the top
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
-}
-</script>
